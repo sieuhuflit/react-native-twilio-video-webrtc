@@ -29,6 +29,11 @@ const propTypes = {
    * Callback that is called when video is toggled.
    */
   onVideoChanged: PropTypes.func,
+  
+  /**
+       * Callback that is called when screen share permission received.
+       */
+  onScreenShareChanged: PropTypes.func,
 
   /**
    * Callback that is called when a audio is toggled.
@@ -166,7 +171,8 @@ const nativeEvents = {
   sendString: 12,
   publishVideo: 13,
   publishAudio: 14,
-  setRemoteAudioPlayback: 15,
+  toggleScreenShare: 15,
+  setRemoteAudioPlayback: 16,
 };
 
 class CustomTwilioVideoView extends Component {
@@ -233,6 +239,10 @@ class CustomTwilioVideoView extends Component {
     return Promise.resolve(enabled);
   }
 
+  setScreenShareEnabled (enabled) {
+    this.runCommand(nativeEvents.toggleScreenShare, [enabled])
+  }
+
   setLocalAudioEnabled(enabled) {
     this.runCommand(nativeEvents.toggleSound, [enabled]);
     return Promise.resolve(enabled);
@@ -284,6 +294,7 @@ class CustomTwilioVideoView extends Component {
   buildNativeEventWrappers() {
     return [
       "onCameraSwitched",
+      'onScreenShareChanged',
       "onVideoChanged",
       "onAudioChanged",
       "onRoomDidConnect",
