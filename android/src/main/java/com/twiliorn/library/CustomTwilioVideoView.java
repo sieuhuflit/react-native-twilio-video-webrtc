@@ -884,6 +884,7 @@ public class CustomTwilioVideoView extends View implements LifecycleEventListene
             localVideoTrack.release();
             localVideoTrack = null;
             screenCapturer = null;
+            cameraCapturer = null;
 
             WritableMap event = new WritableNativeMap();
             event.putBoolean("screenShareEnabled", false);
