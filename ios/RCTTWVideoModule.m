@@ -128,7 +128,9 @@ RCT_EXPORT_MODULE();
 
 - (void)updateLocalViewMirroring:(TVIVideoView *)view {
   if(self.screen != nil) {
-    view.mirror = false;
+    if (self.camera) {
+      view.mirror = false;
+    }
   }
   else {
       if (self.camera && self.camera.device.position == AVCaptureDevicePositionFront) {
